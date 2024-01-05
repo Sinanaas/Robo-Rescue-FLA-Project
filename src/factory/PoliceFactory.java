@@ -1,13 +1,15 @@
 package factory;
 
-import model.Armor;
-import model.Police;
-import model.Robot;
-import model.Weapon;
+import model.*;
 
 public class PoliceFactory implements RobotFactory {
     @Override
-    public Robot createRobot(Weapon weapon, Armor armor, String name, int health) {
-        return new Police(weapon, armor, name, health, 0);
+    public Robot createRobot(Weapon weapon, Armor armor, String name) {
+        return new Police(weapon, armor, name);
+    }
+    public Robot createRobot(String name){
+        ArmorFactory armorFactory = new ArmorFactory();
+        WeaponFactory weaponFactory = new WeaponFactory();
+        return new Police(weaponFactory.createWeapon("Taser", 15, 0), armorFactory.createArmor("Police Suit", 10, 0), name);
     }
 }

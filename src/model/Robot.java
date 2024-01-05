@@ -12,6 +12,14 @@ public class Robot {
         return status;
     }
 
+    public String getStatus() {
+        if (status) {
+            return "Available";
+        } else {
+            return "In mission";
+        }
+    }
+
     public void setStatus(boolean status) {
         this.status = status;
     }
@@ -56,12 +64,13 @@ public class Robot {
         this.health = health;
     }
 
-    public Robot(Weapon weapon, Armor armor, String name, int health, int points) {
+    public Robot(Weapon weapon, Armor armor, String name) {
         this.weapon = weapon;
         this.armor = armor;
         this.name = name;
-        this.health = health;
-        this.points = points;
+        this.health = 100;
+        this.points = 0;
+        this.status = true;
     }
 
     public void printAll() {
@@ -70,6 +79,7 @@ public class Robot {
         System.out.println("Weapon: " + getWeapon().getName());
         System.out.println("Armor: " + getArmor().getName());
         System.out.println("Points: " + getPoints());
+        System.out.println("Status: " + getStatus());
     }
 
     public int calculateMissionTime(Mission mission) {
@@ -77,9 +87,8 @@ public class Robot {
         int difficultyModifier = mission.getDifficulty();
         int attackModifier = getWeapon().getDamage();
         int defenseModifier = getArmor().getDefense();
-        int healthModifier = getHealth();
 
-        int totalTime = baseTime - (4*attackModifier + 3*defenseModifier - healthModifier/2 - 2*difficultyModifier);
+        int totalTime = baseTime - (4*attackModifier + 3*defenseModifier - 2*difficultyModifier);
 //        return Math.max(totalTime, 0)
         return totalTime;
     }

@@ -7,7 +7,7 @@ public class Firefighter extends Robot {
         return type;
     }
 
-    public Firefighter(Weapon weapon, Armor armor, String name, int health, int points) {
-        super(weapon, armor, name, health, points);
+    public Firefighter(Weapon weapon, Armor armor, String name) {
+        super(weapon, armor, name);
     }
 }

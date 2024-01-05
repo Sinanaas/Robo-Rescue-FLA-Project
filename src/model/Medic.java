@@ -7,7 +7,7 @@ public class Medic extends Robot {
         return type;
     }
 
-    public Medic(Weapon weapon, Armor armor, String name, int health, int points) {
-        super(weapon, armor, name, health, points);
+    public Medic(Weapon weapon, Armor armor, String name) {
+        super(weapon, armor, name);
     }
 }

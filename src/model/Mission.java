@@ -28,6 +28,19 @@ public class Mission {
         return difficulty;
     }
 
+    public String getDifficultyString() {
+        switch (difficulty) {
+            case 1:
+                return "Easy";
+            case 2:
+                return "Medium";
+            case 3:
+                return "Hard";
+            default:
+                return "Unknown";
+        }
+    }
+
     public void setDifficulty(int difficulty) {
         this.difficulty = difficulty;
     }

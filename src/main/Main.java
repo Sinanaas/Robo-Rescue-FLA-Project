@@ -1,6 +1,8 @@
 package main;
 
 import database.Database;
+import facade.MissionBoardMenu;
+import facade.RobotCustomMenu;
 import model.*;
 
 import java.util.Scanner;
@@ -13,10 +15,10 @@ public class Main {
 
     public void startGameMenu() {
         System.out.println("===| ROBO RESCUE |===");
-        System.out.println("1. Robot Customization");
+        System.out.println("1. Robot Workshop");
         System.out.println("2. Mission Board");
         System.out.println("3. Resources and Upgrade");
-//        System.out.println("4. Story Progression and Challenge");
+        System.out.println("4. Exit");
         System.out.print("> ");
     }
 
@@ -28,48 +30,16 @@ public class Main {
             startGameMenu();
             ch1 = sc.nextInt();
             if (ch1 == 1) {
-                int ch2 = 0;
-
-                // Robot Assembly and Customization
-                System.out.println("===| ROBOT CUSTOMIZATION |===");
-
-                AtomicInteger i = new AtomicInteger();
-                db.getRobots().forEach(robot -> {
-                    System.out.println(i.incrementAndGet() + ". " + robot.getName());
-                });
-
-                System.out.print("Which robot you want to customize? : ");
-                ch2 = sc.nextInt();
-
-                // Ensure ch2 is a valid index
-                if (ch2 >= 1 && ch2 <= db.getRobots().size()) {
-                    Robot selectedRobot = db.getRobots().get(ch2 - 1);
-                    selectedRobot.printAll();
-                } else {
-                    System.out.println("Invalid selection. Please choose a valid robot.");
-                }
+                RobotCustomMenu robotCustomMenu = new RobotCustomMenu();
+                robotCustomMenu.mainMenu();
             } else if(ch1 == 2) {
-                // Mission Board
-//                    Mission mission1 = db.getMissions().get(0);
-//                    Carrier carrier1 = (Carrier) db.getRobots().get(0);
-//                    int timeToCompleteMission1 = carrier1.calculateMissionTime(mission1);
-//                    System.out.println("Carrier 1 can finish Mission 1 in " + timeToCompleteMission1 + " seconds.");
-                db.getMissions().forEach(mission -> {
-                    String missionInfo = String.format(
-                            "%n== %s ==%nDescription: %s\nDifficulty: %d\nReward: %d\nStatus: %d\nTime: %d seconds\n",
-                            mission.getName(), mission.getDescription(), mission.getDifficulty(),
-                            mission.getReward(), mission.isStatus(), mission.getTime()
-                    );
-
-                    System.out.println(missionInfo);
-                });
-
+                MissionBoardMenu missionBoardMenu = new MissionBoardMenu();
+                missionBoardMenu.mainMenu();
             } else if(ch1 == 3) {
                 // Resources and Upgrade
 
             } else if(ch1 == 4) {
-                // Story Progression and Challenge
-
+                System.out.println("Thank you for playing!");
             } else {
                 System.out.println("Invalid choice!");
             }
