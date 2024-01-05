@@ -9,23 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Main {
     static Database db = Database.getInstance();
 
-    public static void populateData() {
-        db.getMissions().add(new Mission("Mission 1", "Mission 1 Description", 1, 1, 0, 100));
-        db.getMissions().add(new Mission("Mission 2", "Mission 2 Description", 2, 2, 1, 200));
-        db.getMissions().add(new Mission("Mission 3", "Mission 3 Description", 3, 3, 2, 250));
 
-        db.getArmors().add(new Armor("Armor 1", 20, 2));
-        db.getArmors().add(new Armor("Armor 2", 25, 4));
-        db.getArmors().add(new Armor("Armor 3", 10, 6));
-
-        db.getWeapons().add(new Weapon("Weapon 1", 20, 2));
-        db.getWeapons().add(new Weapon("Weapon 2", 25, 4));
-        db.getWeapons().add(new Weapon("Weapon 3", 10, 6));
-
-        db.getRobots().add(new Carrier(db.getWeapons().get(0), db.getArmors().get(0), "Carrier 1", 100, "Carrier", 0));
-        db.getRobots().add(new Fighter(db.getWeapons().get(1), db.getArmors().get(1), "Fighter 1", 100, "Fighter", 0));
-        db.getRobots().add(new Worker(db.getWeapons().get(2), db.getArmors().get(2), "Worker 1", 100, "Worker", 0));
-    }
 
     public void startGameMenu() {
         System.out.println("===| ROBO RESCUE |===");
@@ -92,7 +76,6 @@ public class Main {
         } while(ch1 != 4);
     }
     public static void main(String[] args) {
-        populateData();
         new Main();
     }
 }
