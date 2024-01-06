@@ -61,11 +61,16 @@ public class RobotCustomMenu {
     }
 
     public void viewRobots(){
-        AtomicInteger i = new AtomicInteger();
-        db.getRobots().forEach(robot -> {
-            System.out.println("\nRobot " + i.incrementAndGet());
-            robot.printAll();
-        });
+        if(db.getRobots().isEmpty()){
+            System.out.println("You don't have robots yet...");
+        }
+        else{
+            AtomicInteger i = new AtomicInteger();
+            db.getRobots().forEach(robot -> {
+                System.out.println("\nRobot " + i.incrementAndGet());
+                robot.printAll();
+            });
+        }
         System.out.print("Press ENTER to continue...");
         sc.nextLine();
     }
@@ -119,6 +124,10 @@ public class RobotCustomMenu {
         int ch2 = 0;
         System.out.println("===| Update Robot |===");
         System.out.println("In this menu, you can change your robot name!");
+        if(db.getRobots().isEmpty()){
+            System.out.println("You don't have robots yet...");
+            return;
+        }
         briefList();
 
         System.out.print("Which robot you want to customize? : ");
@@ -146,6 +155,10 @@ public class RobotCustomMenu {
     public void deleteRobot(){
         int ch2 = 0;
         System.out.println("===| Delete Robot |===");
+        if(db.getRobots().isEmpty()){
+            System.out.println("You don't have robots yet...");
+            return;
+        }
         briefList();
 
         System.out.print("Which robot you want to delete? : ");

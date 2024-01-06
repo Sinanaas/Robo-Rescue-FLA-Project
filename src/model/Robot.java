@@ -4,6 +4,7 @@ public class Robot {
     private Weapon weapon;
     private Armor armor;
     private String name;
+    private String type;
     private int health;
     private boolean status;
     private int points;
@@ -64,13 +65,18 @@ public class Robot {
         this.health = health;
     }
 
-    public Robot(Weapon weapon, Armor armor, String name) {
+    public String getType(){
+        return type;
+    }
+
+    public Robot(Weapon weapon, Armor armor, String name, String type) {
         this.weapon = weapon;
         this.armor = armor;
         this.name = name;
         this.health = 100;
         this.points = 0;
         this.status = true;
+        this.type = type;
     }
 
     public void printAll() {
@@ -84,12 +90,9 @@ public class Robot {
 
     public int calculateMissionTime(Mission mission) {
         int baseTime = mission.getTime();
-        int difficultyModifier = mission.getDifficulty();
         int attackModifier = getWeapon().getDamage();
         int defenseModifier = getArmor().getDefense();
 
-        int totalTime = baseTime - (4*attackModifier + 3*defenseModifier - 2*difficultyModifier);
-//        return Math.max(totalTime, 0)
-        return totalTime;
+        return baseTime + (attackModifier / defenseModifier);
     }
 }

@@ -2,6 +2,7 @@ package main;
 
 import database.Database;
 import facade.MissionBoardMenu;
+import facade.ResourceManagementMenu;
 import facade.RobotCustomMenu;
 import model.*;
 
@@ -9,9 +10,6 @@ import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
-    static Database db = Database.getInstance();
-
-
 
     public void startGameMenu() {
         System.out.println("===| ROBO RESCUE |===");
@@ -36,8 +34,8 @@ public class Main {
                 MissionBoardMenu missionBoardMenu = new MissionBoardMenu();
                 missionBoardMenu.mainMenu();
             } else if(ch1 == 3) {
-                // Resources and Upgrade
-
+                ResourceManagementMenu resourceManagementMenu = new ResourceManagementMenu();
+                resourceManagementMenu.mainMenu();
             } else if(ch1 == 4) {
                 System.out.println("Thank you for playing!");
             } else {
