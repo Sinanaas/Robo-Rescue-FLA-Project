@@ -121,6 +121,11 @@ public class RobotCustomMenu {
     }
 
     public void updateRobot(){
+        MissionBoardMenu missionBoardMenu = new MissionBoardMenu();
+        if(missionBoardMenu.checkCurrentMission() != null){
+            System.out.println("You have an active mission! You cannot update your robot.");
+            return;
+        }
         int ch2 = 0;
         System.out.println("===| Update Robot |===");
         System.out.println("In this menu, you can change your robot name!");
@@ -134,7 +139,6 @@ public class RobotCustomMenu {
         ch2 = sc.nextInt();
         sc.nextLine();
 
-        // Ensure ch2 is a valid index
         if (ch2 >= 1 && ch2 <= db.getRobots().size()) {
             System.out.println("You have selected Robot " + ch2);
             Robot selectedRobot = db.getRobots().get(ch2 - 1);
@@ -153,6 +157,11 @@ public class RobotCustomMenu {
     }
 
     public void deleteRobot(){
+        MissionBoardMenu missionBoardMenu = new MissionBoardMenu();
+        if(missionBoardMenu.checkCurrentMission() != null){
+            System.out.println("You have an active mission! You cannot delete your robot.");
+            return;
+        }
         int ch2 = 0;
         System.out.println("===| Delete Robot |===");
         if(db.getRobots().isEmpty()){

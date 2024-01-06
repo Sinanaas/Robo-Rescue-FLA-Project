@@ -49,12 +49,12 @@ public class Database {
         INSTANCE.getWeapons().add(weaponFactory.createWeapon("Pistol", 25, 4));
         INSTANCE.getWeapons().add(weaponFactory.createWeapon("Medkit", 10, 6));
 
-        FirefighterFactory firefighterFactory = new FirefighterFactory();
-        INSTANCE.getRobots().add(firefighterFactory.createRobot(INSTANCE.getWeapons().get(0), INSTANCE.getArmors().get(0), "Firefighter 1"));
-        PoliceFactory policeFactory = new PoliceFactory();
-        INSTANCE.getRobots().add(policeFactory.createRobot(INSTANCE.getWeapons().get(1), INSTANCE.getArmors().get(1), "Police 1"));
-        MedicFactory medicFactory = new MedicFactory();
-        INSTANCE.getRobots().add(medicFactory.createRobot(INSTANCE.getWeapons().get(2), INSTANCE.getArmors().get(2), "Medic 1"));
+//        FirefighterFactory firefighterFactory = new FirefighterFactory();
+//        INSTANCE.getRobots().add(firefighterFactory.createRobot(INSTANCE.getWeapons().get(0), INSTANCE.getArmors().get(0), "Firefighter 1"));
+//        PoliceFactory policeFactory = new PoliceFactory();
+//        INSTANCE.getRobots().add(policeFactory.createRobot(INSTANCE.getWeapons().get(1), INSTANCE.getArmors().get(1), "Police 1"));
+//        MedicFactory medicFactory = new MedicFactory();
+//        INSTANCE.getRobots().add(medicFactory.createRobot(INSTANCE.getWeapons().get(2), INSTANCE.getArmors().get(2), "Medic 1"));
     }
     
     public static Database getInstance() {

@@ -5,6 +5,8 @@ import model.Mission;
 import model.Robot;
 
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class MissionBoardMenu {
@@ -48,6 +50,11 @@ public class MissionBoardMenu {
             System.out.println("You have an active mission!");
             return;
         }
+        System.out.println("===| MISSIONS MARKET |===");
+        if(db.getMissions().isEmpty()){
+            System.out.println("There are no missions available!");
+            return;
+        }
         AtomicInteger i = new AtomicInteger();
         db.getMissions().forEach(mission -> {
             i.incrementAndGet();
@@ -61,16 +68,31 @@ public class MissionBoardMenu {
             }
         });
         int choice = 0;
-        System.out.println("Select a mission to accept (input the entry number): ");
-        System.out.print("> ");
-        choice = sc.nextInt();
-        sc.nextLine();
-        System.out.println("Select a robot to assign: ");
+        do{
+            System.out.println("Select a mission to accept (input the entry number): ");
+            System.out.print("> ");
+            choice = sc.nextInt();
+            sc.nextLine();
+            if(choice < 1 || choice > db.getMissions().size()){
+                System.out.println("Invalid choice!");
+            }
+        } while (choice < 1 || choice > db.getMissions().size());
+        if(db.getRobots().isEmpty()){
+            System.out.println("You don't have robots yet...");
+            return;
+        }
+        int robotChoice = 0;
         RobotCustomMenu robotCustomMenu = new RobotCustomMenu();
-        robotCustomMenu.briefList();
-        System.out.print("> ");
-        int robotChoice = sc.nextInt();
-        sc.nextLine();
+        do{
+            System.out.println("Select a robot to assign: ");
+            robotCustomMenu.briefList();
+            System.out.print("> ");
+            robotChoice = sc.nextInt();
+            sc.nextLine();
+            if(robotChoice < 1 || robotChoice > db.getRobots().size()){
+                System.out.println("Invalid choice!");
+            }
+        } while (robotChoice < 1 || robotChoice > db.getRobots().size());
         missionConfirmation(choice, robotChoice);
     }
 
@@ -84,16 +106,18 @@ public class MissionBoardMenu {
         String choice = sc.nextLine();
         if(choice.equalsIgnoreCase("Y")){
             selectedMission.setStatus(1);
-            // temporary solution, might be changed into multithreading
             System.out.println("Executing mission...");
-            try{
-                Thread.sleep(timeToCompleteMission * 1000L);
-            } catch (InterruptedException e) {
-                System.out.println("Mission interrupted! \n Detail:" + e.getMessage());
-            }
-            selectedRobot.setPoints(selectedRobot.getPoints() + selectedMission.getReward());
-            System.out.println("Mission done!");
-            // end of temporary solution
+            ExecutorService executorService = Executors.newSingleThreadExecutor();
+            executorService.execute(() -> {
+                try{
+                    Thread.sleep(timeToCompleteMission * 1000L);
+                    selectedRobot.setPoints(selectedRobot.getPoints() + selectedMission.getReward());
+                    System.out.println("[INFO] " + selectedMission.getName() + " done!");
+                    db.getMissions().remove(selectedMission);
+                } catch (InterruptedException e) {
+                    System.out.println("Mission interrupted! \n Detail:" + e.getMessage());
+                }
+            });
         } else {
             System.out.println("Mission rejected!");
         }
